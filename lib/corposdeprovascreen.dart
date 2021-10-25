@@ -1,6 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+
+import 'package:controle_engenharia/corposdeprova2screen.dart';
 
 /// This is the stateful widget that the main application instantiates.
 class CorposDeProvaScreen extends StatefulWidget {
@@ -24,6 +24,7 @@ class _CorposDeProvaScreenState extends State<CorposDeProvaScreen> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Center(
             child: Text("Digite a quantidade de corpos de prova"),
@@ -42,16 +43,46 @@ class _CorposDeProvaScreenState extends State<CorposDeProvaScreen> {
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownValue = newValue!;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CorposDeProva2Screen(
+                              numeroCorposdeProva: newValue,
+                            )),
+                  );
                 });
               },
-              items: <String>['1','2','3','4','5','6','7','8','8','10','11','12','13','14','15','16','17','18','19','20']
-                  .map<DropdownMenuItem<String>>((String value) {
+              items: <String>[
+                '1',
+                '2',
+                '3',
+                '4',
+                '5',
+                '6',
+                '7',
+                '8',
+                '9',
+                '10',
+                '11',
+                '12',
+                '13',
+                '14',
+                '15',
+                '16',
+                '17',
+                '18',
+                '19',
+                '20'
+              ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
                 );
               }).toList(),
             ),
+          ),
+          Center(
+            child: Text(dropdownValue),
           ),
         ],
       ),

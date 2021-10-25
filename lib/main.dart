@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:controle_engenharia/corposdeprovascreen.dart';
 
 void main() {
-  runApp(Nav2App());
+  runApp(Home());
 }
 
-class Nav2App extends StatelessWidget {
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
