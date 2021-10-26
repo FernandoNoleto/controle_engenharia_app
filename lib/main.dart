@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/corposdeprovascreen.dart';
+import 'package:controle_engenharia/teste.dart';
 
 void main() {
   runApp(Home());
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) {
-                      return CorposDeProvaScreen();
+                      return DataTableDemo();
                     }),
                   );
                 },
