@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:controle_engenharia/inutil.dart';
 import 'package:controle_engenharia/corposdeprovascreen.dart';
-import 'package:controle_engenharia/teste.dart';
 
 void main() {
   runApp(Home());
@@ -32,9 +32,10 @@ class HomeScreen extends StatelessWidget {
               child: ListTile(
                 leading: FlutterLogo(size: 72),
                 title: Text("Corpos de prova"),
-                subtitle: Text("calcular fck, desvio padrão..."),
+                subtitle: Text("Calcular fck, desvio padrão, coeficiente de variação..."),
                 isThreeLine: true,
-                trailing: Icon(Icons.expand_more_outlined),
+                // trailing: Icon(Icons.expand_more_outlined),
+                trailing: TextButton(child: Icon(Icons.expand_more, color: Colors.blueGrey,), onPressed: (){},),
                 onTap: () {
                   Navigator.push(
                     context,

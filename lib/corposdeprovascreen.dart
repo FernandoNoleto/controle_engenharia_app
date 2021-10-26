@@ -1,90 +1,242 @@
 import 'package:flutter/material.dart';
 
-import 'package:controle_engenharia/corposdeprova2screen.dart';
+class Bloco {
+  int id;
+  String name;
+  String value;
 
-/// This is the stateful widget that the main application instantiates.
-class CorposDeProvaScreen extends StatefulWidget {
-  const CorposDeProvaScreen({Key? key}) : super(key: key);
+  Bloco({this.id = 0, this.name = "", this.value = ""});
 
-  @override
-  State<CorposDeProvaScreen> createState() => _CorposDeProvaScreenState();
+  static List<Bloco> getBlocos() {
+    return blocos;
+  }
+
+  static addBlocos(id, firstName, lastName) {
+    var bloco = new Bloco();
+    bloco.id = id;
+    bloco.name = firstName;
+    bloco.value = lastName;
+    blocos.add(bloco);
+  }
 }
 
-/// This is the private State class that goes with MyStatefulWidget.
-class _CorposDeProvaScreenState extends State<CorposDeProvaScreen> {
-  String dropdownValue = '1';
+List<Bloco> blocos = [];
+
+class DataTableDemo extends StatefulWidget {
+  DataTableDemo() : super();
+
+  final String title = "Calculadora CP";
+
+  @override
+  DataTableDemoState createState() => DataTableDemoState();
+}
+
+class DataTableDemoState extends State<DataTableDemo> {
+  late List<Bloco> blocos;
+  late List<Bloco> selectedBlocos;
+  late bool sort;
+
+  SnackBar warningMessage = SnackBar(content: const Text("Algum campo está vazio!"), action: SnackBarAction(label: "Ok", onPressed: (){},),);
+
+  @override
+  void initState() {
+    sort = false;
+    selectedBlocos = [];
+    blocos = Bloco.getBlocos();
+    super.initState();
+  }
+
+  onSortColum(int columnIndex, bool ascending) {
+    if (columnIndex == 0) {
+      if (ascending) {
+        blocos.sort((a, b) => a.name.compareTo(b.name));
+      } else {
+        blocos.sort((a, b) => b.name.compareTo(a.name));
+      }
+    }
+  }
+
+  onSelectedRow(bool selected, Bloco bloco) async {
+    setState(() {
+      if (selected) {
+        selectedBlocos.add(bloco);
+      } else {
+        selectedBlocos.remove(bloco);
+      }
+    });
+  }
+
+  deleteSelected() async {
+    setState(() {
+      if (selectedBlocos.isNotEmpty) {
+        List<Bloco> temp = [];
+        temp.addAll(selectedBlocos);
+        for (Bloco bloco in temp) {
+          blocos.remove(bloco);
+          selectedBlocos.remove(bloco);
+        }
+      }
+    });
+    updateId();
+  }
+
+  updateId() async {
+    setState(() {
+      int i = 1;
+      for (Bloco bloco in blocos) {
+        bloco.id = i;
+        i++;
+      }
+    });
+  }
+
+  bool isValide(){
+
+    for (Bloco bloco in blocos){
+      if (bloco.value == ""){
+        print(bloco.value);
+        // blocos.remove(bloco);
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+
+  calculate() {
+
+    isValide() ?
+      setState(() {
+        try{
+          for (Bloco bloco in blocos){
+            if (bloco.value == ""){
+              print(bloco.value);
+              // blocos.remove(bloco);
+
+            }else{
+              print(bloco.value);
+            }
+          }
+        }
+        catch(exception) {
+          print(exception);
+        }
+      })
+
+    :
+
+    ScaffoldMessenger.of(context).showSnackBar(warningMessage);
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Corpos de Prova'),
-        centerTitle: true,
+        title: Text(widget.title),
         backgroundColor: Colors.blueGrey,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: Text("Digite a quantidade de corpos de prova"),
-          ),
-          Center(
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.blueGrey,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CorposDeProva2Screen(
-                              numeroCorposdeProva: newValue,
-                            )),
-                  );
-                });
-              },
-              items: <String>[
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                '10',
-                '11',
-                '12',
-                '13',
-                '14',
-                '15',
-                '16',
-                '17',
-                '18',
-                '19',
-                '20'
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                    child: Text('Remover (${selectedBlocos.length}) selecionados'),
+                    onPressed: selectedBlocos.isEmpty
+                        ? null
+                        : () {
+                            deleteSelected();
+                          },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                    child: Text('Ok'),
+                    onPressed: blocos.isEmpty ? null : () { calculate();},
+                  ),
+                ),
+              ],
             ),
-          ),
-          Center(
-            child: Text(dropdownValue),
-          ),
-        ],
+            Column(
+              children: <Widget>[
+                // ElevatedButton(
+                //   child: Text('Imprimir todas as linhas'),
+                //   onPressed: () {
+                //     blocos.forEach((u) => print("${u.name} ${u.value}"));
+                //   },
+                // ),
+                DataTable(
+                  horizontalMargin: 40.0,
+                  sortAscending: sort,
+                  sortColumnIndex: 0,
+                  columns: [
+                    DataColumn(
+                      label: Text("Bloco #"),
+                      numeric: false,
+                      tooltip: "Bloco",
+                    ),
+                    DataColumn(
+                      label: Text("Valor do bloco"),
+                      numeric: true,
+                      tooltip: "Valor",
+                    ),
+                  ],
+                  rows: blocos
+                      .map(
+                        (bloco) => DataRow(
+                            selected: selectedBlocos.contains(bloco),
+                            onSelectChanged: (b) {
+                              print("Onselect");
+                              onSelectedRow(b!, bloco);
+                            },
+                            cells: [
+                              DataCell(
+                                Text("Bloco #" + bloco.id.toString()),
+                              ),
+                              DataCell(
+                                //Text(user.firstName),
+                                TextField(
+                                  autofocus: true,
+                                  expands: true,
+                                  minLines: null,
+                                  maxLines: null,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (value) {
+                                    print("text field: $value");
+                                    bloco.value = value;
+                                  },
+                                ),
+                              ),
+                            ]),
+                      )
+                      .toList(),
+                ),
+              ],
+            ),
+          ],
+        ),
+
+        //-----------------------------------------------------------------------------------
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            var bloco = new Bloco();
+            bloco.name = "bloco" + (blocos.length + 1).toString();
+            bloco.value = "";
+            bloco.id = blocos.length + 1;
+            blocos.add(bloco);
+          });
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.blueGrey,
       ),
     );
   }
