@@ -1,38 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:controle_engenharia/corposdeprovascreen2.dart';
+import 'package:controle_engenharia/Objects/blocos.dart';
 
-class Bloco {
-  int id;
-  String name;
-  String value;
+// class Bloco {
+//   int id;
+//   String name;
+//   String value;
+//
+//   Bloco({this.id = 0, this.name = "", this.value = ""});
+//
+//   static List<Bloco> getBlocos() {
+//     return blocos;
+//   }
+//
+//   static addBlocos(id, firstName, lastName) {
+//     var bloco = new Bloco();
+//     bloco.id = id;
+//     bloco.name = firstName;
+//     bloco.value = lastName;
+//     blocos.add(bloco);
+//   }
+// }
 
-  Bloco({this.id = 0, this.name = "", this.value = ""});
+// List<Bloco> blocos = blocos;
 
-  static List<Bloco> getBlocos() {
-    return blocos;
-  }
-
-  static addBlocos(id, firstName, lastName) {
-    var bloco = new Bloco();
-    bloco.id = id;
-    bloco.name = firstName;
-    bloco.value = lastName;
-    blocos.add(bloco);
-  }
-}
-
-List<Bloco> blocos = [];
-
-class DataTableDemo extends StatefulWidget {
-  DataTableDemo() : super();
+class corposDeProvaScreen extends StatefulWidget {
+  corposDeProvaScreen() : super();
 
   final String title = "Calculadora CP";
 
   @override
-  DataTableDemoState createState() => DataTableDemoState();
+  corposDeProvaScreenState createState() => corposDeProvaScreenState();
 }
 
-class DataTableDemoState extends State<DataTableDemo> {
-  late List<Bloco> blocos;
+class corposDeProvaScreenState extends State<corposDeProvaScreen> {
+  // late List<Bloco> blocos;
   late List<Bloco> selectedBlocos;
   late bool sort;
 
@@ -109,15 +111,11 @@ class DataTableDemoState extends State<DataTableDemo> {
     isValide() ?
       setState(() {
         try{
-          for (Bloco bloco in blocos){
-            if (bloco.value == ""){
-              print(bloco.value);
-              // blocos.remove(bloco);
-
-            }else{
-              print(bloco.value);
-            }
+          for(Bloco bloco in blocos){
+            print(bloco.value);
           }
+          Navigator.push(context, MaterialPageRoute(builder: (context) => corposDeProvaScreen2(blocos: blocos)));
+
         }
         catch(exception) {
           print(exception);
@@ -137,6 +135,13 @@ class DataTableDemoState extends State<DataTableDemo> {
         title: Text(widget.title),
         backgroundColor: Colors.blueGrey,
       ),
+
+
+
+      //-----------------------------------------------------------------------------------
+
+
+
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -222,9 +227,10 @@ class DataTableDemoState extends State<DataTableDemo> {
             ),
           ],
         ),
-
-        //-----------------------------------------------------------------------------------
       ),
+
+      //-----------------------------------------------------------------------------------
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
