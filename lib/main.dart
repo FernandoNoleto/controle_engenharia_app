@@ -1,5 +1,5 @@
+import 'package:controle_engenharia/Common/app_card.dart';
 import 'package:flutter/material.dart';
-// import 'package:controle_engenharia/inutil.dart';
 import 'package:controle_engenharia/corposdeprovascreen.dart';
 
 void main() {
@@ -22,34 +22,32 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Controle Engenharia'),
-        centerTitle: true,
         backgroundColor: Colors.blueGrey,
       ),
       body: Center(
         child: ListView(
           children: <Widget>[
-            Card(
-              child: ListTile(
-                leading: FlutterLogo(size: 72),
-                title: Text("Corpos de prova"),
-                subtitle: Text("Calcular fck, desvio padrão, coeficiente de variação..."),
-                isThreeLine: true,
-                // trailing: TextButton(child: Icon(Icons.expand_more, color: Colors.blueGrey,), onPressed: (){},),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return corposDeProvaScreen();
-                    }),
-                  );
-                },
+            AppCard(
+              title: Text(
+                "Corpos de prova",
+                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
               ),
-            )
+              subtitle: Text(
+                "Calcular fck, desvio padrão, coeficiente de variação...",
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return corposDeProvaScreen();
+                  }),
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
 }
-
-

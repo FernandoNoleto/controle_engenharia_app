@@ -16,13 +16,20 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   late List<Bloco> selectedBlocos;
   late bool sort;
 
-  SnackBar warningMessage = SnackBar(content: const Text("Algum campo está vazio!"), action: SnackBarAction(label: "Ok", onPressed: (){},),);
+  SnackBar warningMessage = SnackBar(
+    content: const Text("Algum campo está vazio!"),
+    action: SnackBarAction(
+      label: "Ok",
+      onPressed: () {},
+    ),
+  );
 
   @override
   void initState() {
     sort = false;
     selectedBlocos = [];
-    blocos = Bloco.getBlocos();
+    // blocos = Bloco.getBlocos();
+    blocos = [];
     super.initState();
   }
 
@@ -70,10 +77,9 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     });
   }
 
-  bool isValide(){
-
-    for (Bloco bloco in blocos){
-      if (bloco.value == ""){
+  bool isValide() {
+    for (Bloco bloco in blocos) {
+      if (bloco.value == "") {
         print(bloco.value);
         // blocos.remove(bloco);
         return false;
@@ -83,24 +89,22 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   }
 
   calculate() {
-
-    isValide() ?
-      setState(() {
-        try{
-          for(Bloco bloco in blocos){
-            print(bloco.value);
-          }
-          Navigator.push(context, MaterialPageRoute(builder: (context) => corposDeProvaScreen2(blocos: blocos)));
-        }
-        catch(exception) {
-          print(exception);
-        }
-      })
-
-    :
-
-    ScaffoldMessenger.of(context).showSnackBar(warningMessage);
-
+    isValide()
+        ? setState(() {
+            try {
+              for (Bloco bloco in blocos) {
+                print(bloco.value);
+              }
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          corposDeProvaScreen2(blocos: blocos)));
+            } catch (exception) {
+              print(exception);
+            }
+          })
+        : ScaffoldMessenger.of(context).showSnackBar(warningMessage);
   }
 
   @override
@@ -111,9 +115,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
         backgroundColor: Colors.blueGrey,
       ),
 
-
       //-----------------------------------------------------------------------------------
-
 
       body: SingleChildScrollView(
         child: Column(
@@ -125,7 +127,13 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: OutlinedButton(
-                    child: Text('Remover (${selectedBlocos.length}) selecionados'),
+                    style: OutlinedButton.styleFrom(
+                      shape: StadiumBorder(),
+                      primary: Colors.redAccent,
+                      textStyle: TextStyle(fontSize: 18),
+                    ),
+                    child:
+                        Text('Remover (${selectedBlocos.length}) selecionados'),
                     onPressed: selectedBlocos.isEmpty
                         ? null
                         : () {
@@ -136,20 +144,25 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: OutlinedButton(
-                    child: Text('Ok'),
-                    onPressed: blocos.isEmpty ? null : () { calculate();},
+                    style: OutlinedButton.styleFrom(
+                      primary: Colors.greenAccent,
+                      shape: StadiumBorder(),
+                      textStyle: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
+                    child: Text('OK'),
+                    onPressed: blocos.isEmpty
+                        ? null
+                        : () {
+                            calculate();
+                          },
                   ),
                 ),
               ],
             ),
             Column(
               children: <Widget>[
-                // ElevatedButton(
-                //   child: Text('Imprimir todas as linhas'),
-                //   onPressed: () {
-                //     blocos.forEach((u) => print("${u.name} ${u.value}"));
-                //   },
-                // ),
                 DataTable(
                   horizontalMargin: 40.0,
                   sortAscending: sort,

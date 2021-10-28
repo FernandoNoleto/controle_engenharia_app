@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
+import 'package:controle_engenharia/Common/app_card.dart';
 
 
 class corposDeProvaScreen2 extends StatefulWidget {
@@ -19,6 +20,7 @@ class corposDeProvaScreen2 extends StatefulWidget {
       aux += int.parse(bloco.value);
     }
     md = (aux / blocos.length);
+
     return md;
   }
 
@@ -48,12 +50,42 @@ class corposDeProvaScreen2 extends StatefulWidget {
     return fck;
   }
 
+
+
   @override
   _corposDeProvaScreen2State createState() => _corposDeProvaScreen2State();
 }
 
 class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
 
+  var fontSize = 32.0;
+  var media = 0.0;
+  var somatorio = 0.0;
+  var desvioPadrao = 0.0;
+  var variacao = 0.0;
+  var fck = 0.0;
+
+  @override
+  void initState(){
+    media = widget.media();
+    somatorio = widget.somatorio();
+    desvioPadrao = widget.desvioPadrao();
+    variacao = widget.variacao();
+    fck = widget.fcknow();
+  }
+
+
+  void upFontSize(double textSize) {
+    setState(() {
+      this.fontSize += 5.0;
+    });
+  }
+
+  void downFontSize(double textSize) {
+    setState(() {
+      this.fontSize -= 5.0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,89 +93,65 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
         title: Text("Calculo CP"),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 10.0),
+              child: IconButton(
+                tooltip: "Diminutir fonte",
+                onPressed: () { downFontSize(fontSize); },
+                icon: const Icon(
+                  Icons.format_size,
+                  size: 18.0,
+                ),
+              ),
+          ),
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: IconButton(
+                tooltip: "Aumentar fonte",
+                onPressed: () { upFontSize(fontSize); },
+                icon: const Icon(
+                  Icons.format_size,
+                  size: 26.0,
+                ),
+              ),
+          ),
+        ],
+
+
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: ListTile(
-                leading: FlutterLogo(
-                  size: 72.0,
-                ),
-                title: Text("Média", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(widget.media().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-              ),
+            child: AppCard(
+              title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             ),
           ),
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: ListTile(
-                leading: FlutterLogo(
-                  size: 72.0,
-                ),
-                title: Text("Somatório", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(widget.somatorio().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-              ),
+            child: AppCard(
+              title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             ),
           ),
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: ListTile(
-                leading: FlutterLogo(
-                  size: 72.0,
-                ),
-                title: Text("Desvio Padrão", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(widget.desvioPadrao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-              ),
+            child: AppCard(
+              title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             ),
           ),
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: ListTile(
-                leading: FlutterLogo(
-                  size: 72.0,
-                ),
-                title: Text("Variação média", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(widget.variacao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-              ),
+            child: AppCard(
+              title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             ),
           ),
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: EdgeInsets.all(10),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: ListTile(
-                leading: FlutterLogo(
-                  size: 72.0,
-                ),
-                title: Text("FCK", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(widget.fcknow().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-              ),
+            child: AppCard(
+              title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             ),
           ),
         ],
