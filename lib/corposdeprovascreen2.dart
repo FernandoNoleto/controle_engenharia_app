@@ -1,9 +1,9 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
 
-class corposDeProvaScreen2 extends StatelessWidget {
+
+class corposDeProvaScreen2 extends StatefulWidget {
   corposDeProvaScreen2({Key? key, required this.blocos}) : super(key: key);
 
   final List<Bloco> blocos;
@@ -13,16 +13,8 @@ class corposDeProvaScreen2 extends StatelessWidget {
   double vrc = 0;
   double fck = 0;
 
-  void mostrarValores() {
-    // print(blocos);
-    for (Bloco bloco in blocos) {
-      print(bloco.value);
-    }
-  }
-
-  double media() {
+  double media(){
     double aux = 0;
-    // double media = 0;
     for (Bloco bloco in blocos) {
       aux += int.parse(bloco.value);
     }
@@ -57,6 +49,13 @@ class corposDeProvaScreen2 extends StatelessWidget {
   }
 
   @override
+  _corposDeProvaScreen2State createState() => _corposDeProvaScreen2State();
+}
+
+class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -78,8 +77,8 @@ class corposDeProvaScreen2 extends StatelessWidget {
                 leading: FlutterLogo(
                   size: 72.0,
                 ),
-                title: Text("Media", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(media().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                title: Text("Média", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                subtitle: Text(widget.media().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               ),
             ),
           ),
@@ -94,8 +93,8 @@ class corposDeProvaScreen2 extends StatelessWidget {
                 leading: FlutterLogo(
                   size: 72.0,
                 ),
-                title: Text("Somatorio", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(somatorio().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                title: Text("Somatório", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                subtitle: Text(widget.somatorio().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               ),
             ),
           ),
@@ -111,7 +110,7 @@ class corposDeProvaScreen2 extends StatelessWidget {
                   size: 72.0,
                 ),
                 title: Text("Desvio Padrão", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(desvioPadrao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                subtitle: Text(widget.desvioPadrao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               ),
             ),
           ),
@@ -126,8 +125,8 @@ class corposDeProvaScreen2 extends StatelessWidget {
                 leading: FlutterLogo(
                   size: 72.0,
                 ),
-                title: Text("Variação media", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(variacao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                title: Text("Variação média", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
+                subtitle: Text(widget.variacao().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               ),
             ),
           ),
@@ -143,7 +142,7 @@ class corposDeProvaScreen2 extends StatelessWidget {
                   size: 72.0,
                 ),
                 title: Text("FCK", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
-                subtitle: Text(fcknow().toStringAsPrecision(3), style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                subtitle: Text(widget.fcknow().toStringAsPrecision(3), style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),),
               ),
             ),
           ),

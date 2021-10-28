@@ -2,28 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:controle_engenharia/corposdeprovascreen2.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
 
-// class Bloco {
-//   int id;
-//   String name;
-//   String value;
-//
-//   Bloco({this.id = 0, this.name = "", this.value = ""});
-//
-//   static List<Bloco> getBlocos() {
-//     return blocos;
-//   }
-//
-//   static addBlocos(id, firstName, lastName) {
-//     var bloco = new Bloco();
-//     bloco.id = id;
-//     bloco.name = firstName;
-//     bloco.value = lastName;
-//     blocos.add(bloco);
-//   }
-// }
-
-// List<Bloco> blocos = blocos;
-
 class corposDeProvaScreen extends StatefulWidget {
   corposDeProvaScreen() : super();
 
@@ -104,8 +82,6 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     return true;
   }
 
-
-
   calculate() {
 
     isValide() ?
@@ -115,7 +91,6 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
             print(bloco.value);
           }
           Navigator.push(context, MaterialPageRoute(builder: (context) => corposDeProvaScreen2(blocos: blocos)));
-
         }
         catch(exception) {
           print(exception);
@@ -137,9 +112,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
       ),
 
 
-
       //-----------------------------------------------------------------------------------
-
 
 
       body: SingleChildScrollView(

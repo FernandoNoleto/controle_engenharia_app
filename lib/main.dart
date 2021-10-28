@@ -34,8 +34,7 @@ class HomeScreen extends StatelessWidget {
                 title: Text("Corpos de prova"),
                 subtitle: Text("Calcular fck, desvio padrão, coeficiente de variação..."),
                 isThreeLine: true,
-                // trailing: Icon(Icons.expand_more_outlined),
-                trailing: TextButton(child: Icon(Icons.expand_more, color: Colors.blueGrey,), onPressed: (){},),
+                // trailing: TextButton(child: Icon(Icons.expand_more, color: Colors.blueGrey,), onPressed: (){},),
                 onTap: () {
                   Navigator.push(
                     context,
