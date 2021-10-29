@@ -17,7 +17,7 @@ class corposDeProvaScreen2 extends StatefulWidget {
   double media(){
     double aux = 0;
     for (Bloco bloco in blocos) {
-      aux += int.parse(bloco.value);
+      aux += double.parse(bloco.value);
     }
     md = (aux / blocos.length);
 
@@ -26,7 +26,7 @@ class corposDeProvaScreen2 extends StatefulWidget {
 
   double somatorio() {
     for(Bloco bloco in blocos){
-      sum += (md - int.parse(bloco.value)) * (md - int.parse(bloco.value));
+      sum += (md - double.parse(bloco.value)) * (md - double.parse(bloco.value));
     }
 
     return sum;
