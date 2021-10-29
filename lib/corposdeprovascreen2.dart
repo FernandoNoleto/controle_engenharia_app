@@ -2,6 +2,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
 import 'package:controle_engenharia/Common/app_card.dart';
+// import 'package:controle_engenharia/corposdeprovascreen.dart';
+
+
 
 
 class corposDeProvaScreen2 extends StatefulWidget {
@@ -65,6 +68,15 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
   var variacao = 0.0;
   var fck = 0.0;
 
+  SnackBar warningMessage = SnackBar(
+    content: const Text("Limite do tamanho da fonte alcançado!"),
+    duration: const Duration(seconds: 2),
+    action: SnackBarAction(
+      label: "Ok",
+      onPressed: () {},
+    ),
+  );
+
   @override
   void initState(){
     media = widget.media();
@@ -77,7 +89,7 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
 
   void upFontSize(double textSize) {
     setState(() {
-      this.fontSize += 5.0;
+      this.fontSize >= 42.0 ? ScaffoldMessenger.of(context).showSnackBar(warningMessage) : this.fontSize += 5.0;
     });
   }
 
@@ -117,42 +129,30 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
               ),
           ),
         ],
-
-
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Expanded(
-            child: AppCard(
-              title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-              subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            ),
+          AppCard(
+            title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
           ),
-          Expanded(
-            child: AppCard(
-              title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-              subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            ),
+          AppCard(
+            title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
           ),
-          Expanded(
-            child: AppCard(
-              title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-              subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            ),
+          AppCard(
+            title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
           ),
-          Expanded(
-            child: AppCard(
-              title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-              subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            ),
+          AppCard(
+            title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
           ),
-          Expanded(
-            child: AppCard(
-              title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-              subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            ),
+          AppCard(
+            title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
           ),
         ],
       ),

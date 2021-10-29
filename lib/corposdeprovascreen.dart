@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:controle_engenharia/corposdeprovascreen2.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
 
+
+List<Bloco> blocos = [];
+
 class corposDeProvaScreen extends StatefulWidget {
   corposDeProvaScreen() : super();
 
@@ -12,7 +15,7 @@ class corposDeProvaScreen extends StatefulWidget {
 }
 
 class corposDeProvaScreenState extends State<corposDeProvaScreen> {
-  // late List<Bloco> blocos;
+  late List<Bloco> blocos = [];
   late List<Bloco> selectedBlocos;
   late bool sort;
 
@@ -28,8 +31,8 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   void initState() {
     sort = false;
     selectedBlocos = [];
-    // blocos = Bloco.getBlocos();
-    blocos = [];
+    blocos = Bloco.getBlocos();
+    // blocos = [];
     super.initState();
   }
 
@@ -59,6 +62,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
         List<Bloco> temp = [];
         temp.addAll(selectedBlocos);
         for (Bloco bloco in temp) {
+          print(bloco.value);
           blocos.remove(bloco);
           selectedBlocos.remove(bloco);
         }
@@ -79,6 +83,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
 
   bool isValide() {
     for (Bloco bloco in blocos) {
+      print("id: ${bloco.id}, name: ${bloco.name}, value: ${bloco.value}");
       if (bloco.value == "") {
         print(bloco.value);
         // blocos.remove(bloco);
@@ -105,6 +110,16 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
             }
           })
         : ScaffoldMessenger.of(context).showSnackBar(warningMessage);
+  }
+
+
+  debug(){
+    for(Bloco bloco in blocos){
+      print("blocos: id: ${bloco.id}, name: ${bloco.name}, value: ${bloco.value}");
+    }
+    for (Bloco bloco in selectedBlocos) {
+      print("selected blocos: id: ${bloco.id}, name: ${bloco.name}, value: ${bloco.value}");
+    }
   }
 
   @override
@@ -141,6 +156,20 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                           },
                   ),
                 ),
+                // Padding(
+                //   padding: EdgeInsets.all(10.0),
+                //   child: OutlinedButton(
+                //     style: OutlinedButton.styleFrom(
+                //       primary: Colors.greenAccent,
+                //       shape: StadiumBorder(),
+                //       textStyle: TextStyle(
+                //         fontSize: 18,
+                //       ),
+                //     ),
+                //     child: Text('Imprimir'),
+                //     onPressed: (){ debug();},
+                //   ),
+                // ),
                 Padding(
                   padding: EdgeInsets.all(10.0),
                   child: OutlinedButton(
@@ -184,7 +213,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                         (bloco) => DataRow(
                             selected: selectedBlocos.contains(bloco),
                             onSelectChanged: (b) {
-                              print("Onselect");
+                              print("Onselect: ${bloco.value}");
                               onSelectedRow(b!, bloco);
                             },
                             cells: [
@@ -193,8 +222,10 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                               ),
                               DataCell(
                                 //Text(user.firstName),
-                                TextField(
-                                  autofocus: true,
+                                TextFormField(
+                                  key: Key(bloco.value),
+                                  initialValue: bloco.value,
+                                  autofocus: false,
                                   expands: true,
                                   minLines: null,
                                   maxLines: null,
