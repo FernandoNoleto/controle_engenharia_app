@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: <Widget>[
             AppCard(
+              logo: Image(image: AssetImage('assets/icon/press.png')),
               title: Text(
                 "Corpos de prova",
                 style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),

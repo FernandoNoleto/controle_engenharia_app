@@ -19,13 +19,22 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   late List<Bloco> selectedBlocos;
   late bool sort;
 
-  SnackBar warningMessage = SnackBar(
+  SnackBar twoFieldsMessage = SnackBar(
+    content: const Text("Para continuar preencha pelo menos 2 campos!"),
+    action: SnackBarAction(
+      label: "Ok",
+      onPressed: () {},
+    ),
+  );
+
+  SnackBar blankFieldMessage = SnackBar(
     content: const Text("Algum campo está vazio!"),
     action: SnackBarAction(
       label: "Ok",
       onPressed: () {},
     ),
   );
+
 
   @override
   void initState() {
@@ -82,11 +91,16 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   }
 
   bool isValide() {
+    if (blocos.length <= 1){
+      ScaffoldMessenger.of(context).showSnackBar(twoFieldsMessage);
+      return false;
+    }
     for (Bloco bloco in blocos) {
       print("id: ${bloco.id}, name: ${bloco.name}, value: ${bloco.value}");
       if (bloco.value == "") {
         print(bloco.value);
         // blocos.remove(bloco);
+        ScaffoldMessenger.of(context).showSnackBar(blankFieldMessage);
         return false;
       }
     }
@@ -109,9 +123,8 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
               print(exception);
             }
           })
-        : ScaffoldMessenger.of(context).showSnackBar(warningMessage);
+        : print("");
   }
-
 
   debug(){
     for(Bloco bloco in blocos){
@@ -140,7 +153,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 15.0, bottom: 5.0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       shape: StadiumBorder(),
@@ -171,7 +184,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                 //   ),
                 // ),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(left: 5.0, right: 5.0, top: 15.0, bottom: 5.0),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
                       primary: Colors.greenAccent,
@@ -248,7 +261,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
 
       //-----------------------------------------------------------------------------------
 
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           setState(() {
             var bloco = new Bloco();
@@ -258,7 +271,9 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
             blocos.add(bloco);
           });
         },
-        child: const Icon(Icons.add),
+        // child: const Icon(Icons.add),
+        label: const Text("Adicionar"),
+        icon: const Icon(Icons.add),
         backgroundColor: Colors.blueGrey,
       ),
     );
