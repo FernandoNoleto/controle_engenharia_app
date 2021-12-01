@@ -129,36 +129,38 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
           ),
         ],
       ),
-      body: Column(
+      body: Center(
         // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          AppCard(
-            title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            logo: Image(image: AssetImage('assets/icon/average.png')),
-          ),
-          AppCard(
-            title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            logo: Image(image: AssetImage('assets/icon/sum.png')),
-          ),
-          AppCard(
-            title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            logo: Image(image: AssetImage('assets/icon/dp.png')),
-          ),
-          AppCard(
-            title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            logo: Image(image: AssetImage('assets/icon/variation.png')),
-          ),
-          AppCard(
-            title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
-            logo: Image(image: AssetImage('assets/icon/fck.png')),
-          ),
-        ],
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
+          children: <Widget>[
+            AppCard(
+              title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              logo: Image(image: AssetImage('assets/icon/average.png')),
+            ),
+            AppCard(
+              title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              logo: Image(image: AssetImage('assets/icon/sum.png')),
+            ),
+            AppCard(
+              title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              logo: Image(image: AssetImage('assets/icon/dp.png')),
+            ),
+            AppCard(
+              title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              logo: Image(image: AssetImage('assets/icon/variation.png')),
+            ),
+            AppCard(
+              title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+              logo: Image(image: AssetImage('assets/icon/fck.png')),
+            ),
+          ],
+        ),
       ),
     );
   }
