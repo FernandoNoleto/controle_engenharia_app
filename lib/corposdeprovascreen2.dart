@@ -86,7 +86,6 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
     fck = widget.fcknow();
   }
 
-
   void upFontSize(double textSize) {
     setState(() {
       this.fontSize >= 42.0 ? ScaffoldMessenger.of(context).showSnackBar(warningMessage) : this.fontSize += 5.0;
@@ -137,22 +136,27 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
           AppCard(
             title: Text("Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             subtitle: Text(media.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            logo: Image(image: AssetImage('assets/icon/average.png')),
           ),
           AppCard(
             title: Text("Somatório", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             subtitle: Text(somatorio.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            logo: Image(image: AssetImage('assets/icon/sum.png')),
           ),
           AppCard(
             title: Text("Desvio Padrão", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             subtitle: Text(desvioPadrao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            logo: Image(image: AssetImage('assets/icon/dp.png')),
           ),
           AppCard(
             title: Text("Variação Média", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             subtitle: Text(variacao.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            logo: Image(image: AssetImage('assets/icon/variation.png')),
           ),
           AppCard(
             title: Text("FCK", style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
             subtitle: Text(fck.toStringAsFixed(5), style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),),
+            logo: Image(image: AssetImage('assets/icon/fck.png')),
           ),
         ],
       ),
