@@ -1,16 +1,15 @@
-# controle_engenharia
+# Controle Engenharia
 
-A new Flutter project.
+- 🇧🇷 : um aplicativo para cálculos de controle tecnológico do concreto.
+- 🇺🇸 : An application for technological control calculations for concrete.
 
-## Getting Started
+## Version 1.0
 
-This project is a starting point for a Flutter application.
+- 🇧🇷 : Cálculos de média, somatorio, desvio padrão, variação média e FCK. Tabela de inserção de valores dos corpos de prova. 
+- 🇺🇸 : Calculations of mean, summation, standard deviation, mean variation and Feature Compression Know (FCK). Proof bodies values input table.
 
-A few resources to get you started if this is your first Flutter project:
+## Version 2.0
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- 🇧🇷 : Ícones adicionados, melhorias de interface, correção de bug relacionado a transbordamento de texto.
+- 🇺🇸 : Added icons, interface improvements, bug fix related to text overflow
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
