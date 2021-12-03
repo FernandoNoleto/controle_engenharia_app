@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
 import 'package:controle_engenharia/Common/app_card.dart';
-// import 'package:controle_engenharia/corposdeprovascreen.dart';
-
+import 'package:controle_engenharia/corposdeprovascreen.dart';
+import 'package:controle_engenharia/Provider/sharedpreferences.dart';
 
 
 
@@ -41,18 +41,15 @@ class corposDeProvaScreen2 extends StatefulWidget {
     return dp;
   }
 
-
   double variacao(){
     vrc = dp / md * 100;
     return vrc;
   }
 
-
   double fcknow(){
     fck = (md - (1.65 * dp));
     return fck;
   }
-
 
 
   @override
@@ -84,6 +81,14 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
     desvioPadrao = widget.desvioPadrao();
     variacao = widget.variacao();
     fck = widget.fcknow();
+
+
+    sharedPreferences prefs = sharedPreferences();
+    setState(() {
+      prefs.writeValues(media, somatorio, desvioPadrao, variacao, fck);
+    });
+
+
   }
 
   void upFontSize(double textSize) {

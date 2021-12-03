@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'package:controle_engenharia/corposdeprovascreen2.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
-
+import 'package:controle_engenharia/historyscreen.dart';
+import 'package:controle_engenharia/Common/warningmessages.dart';
 
 List<Bloco> blocos = [];
 
@@ -19,22 +21,6 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
   late List<Bloco> selectedBlocos;
   late bool sort;
 
-  SnackBar twoFieldsMessage = SnackBar(
-    content: const Text("Para continuar preencha pelo menos 2 campos!"),
-    action: SnackBarAction(
-      label: "Ok",
-      onPressed: () {},
-    ),
-  );
-
-  SnackBar blankFieldMessage = SnackBar(
-    content: const Text("Algum campo está vazio!"),
-    action: SnackBarAction(
-      label: "Ok",
-      onPressed: () {},
-    ),
-  );
-
 
   @override
   void initState() {
@@ -45,7 +31,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     super.initState();
   }
 
-  onSortColum(int columnIndex, bool ascending) {
+  void onSortColum(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       if (ascending) {
         blocos.sort((a, b) => a.name.compareTo(b.name));
@@ -55,7 +41,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     }
   }
 
-  onSelectedRow(bool selected, Bloco bloco) async {
+  void onSelectedRow(bool selected, Bloco bloco) async {
     setState(() {
       if (selected) {
         selectedBlocos.add(bloco);
@@ -65,7 +51,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     });
   }
 
-  deleteSelected() async {
+  void deleteSelected() async {
     setState(() {
       if (selectedBlocos.isNotEmpty) {
         List<Bloco> temp = [];
@@ -80,7 +66,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     updateId();
   }
 
-  updateId() async {
+  void updateId() async {
     setState(() {
       int i = 1;
       for (Bloco bloco in blocos) {
@@ -92,7 +78,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
 
   bool isValide() {
     if (blocos.length <= 1){
-      ScaffoldMessenger.of(context).showSnackBar(twoFieldsMessage);
+      ScaffoldMessenger.of(context).showSnackBar(warningMessages().twoFieldsMessage);
       return false;
     }
     for (Bloco bloco in blocos) {
@@ -100,14 +86,14 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
       if (bloco.value == "") {
         print(bloco.value);
         // blocos.remove(bloco);
-        ScaffoldMessenger.of(context).showSnackBar(blankFieldMessage);
+        ScaffoldMessenger.of(context).showSnackBar(warningMessages().blankFieldMessage);
         return false;
       }
     }
     return true;
   }
 
-  calculate() {
+  void calculate() {
     isValide()
         ? setState(() {
             try {
@@ -118,7 +104,10 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          corposDeProvaScreen2(blocos: blocos)));
+                          corposDeProvaScreen2(blocos: blocos))
+              );
+
+
             } catch (exception) {
               print(exception);
             }
@@ -126,7 +115,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
         : print("");
   }
 
-  debug(){
+  void debug(){
     for(Bloco bloco in blocos){
       print("blocos: id: ${bloco.id}, name: ${bloco.name}, value: ${bloco.value}");
     }
@@ -135,12 +124,38 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
     }
   }
 
+  void history(){
+
+    return;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: Colors.blueGrey,
+        actions: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: IconButton(
+              tooltip: "Histórico",
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return historyScreen();
+                  }),
+                );
+              },
+              icon: const Icon(
+                Icons.history,
+                size: 26.0,
+              ),
+            ),
+          ),
+        ],
       ),
 
       //-----------------------------------------------------------------------------------
