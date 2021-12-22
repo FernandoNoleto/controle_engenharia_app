@@ -5,7 +5,6 @@ import 'package:controle_engenharia/home_screen.dart';
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,13 +14,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Splash Screen Flutter'),
+      home: MyHomePage(title: 'Controle Engenharia'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   var title;
+
   MyHomePage({Key? key, this.title}) : super(key: key);
 
   @override
@@ -43,10 +43,7 @@ Widget _introScreen() {
         gradientBackground: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          colors: [
-            Color(0xffffffff),
-            Color(0xff607d8b)
-          ],
+          colors: [Color(0xffffffff), Color(0xff607d8b)],
         ),
         navigateAfterSeconds: Home(),
         loaderColor: Colors.transparent,
@@ -62,12 +59,6 @@ Widget _introScreen() {
     ],
   );
 }
-
-
-
-
-
-
 
 //
 // void main() {

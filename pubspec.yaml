@@ -15,6 +15,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   splashscreen: ^1.2.0
   shared_preferences: ^2.0.9
+  path_provider: ^2.0.7
+  get_storage: ^2.0.3
+  json_serializable: ^6.1.1
+  intl: ^0.17.0
 
 
 

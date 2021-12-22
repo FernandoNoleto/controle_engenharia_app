@@ -1,9 +1,13 @@
 import 'dart:math';
+import 'package:controle_engenharia/Objects/calculations.dart';
+import 'package:controle_engenharia/Provider/persist.dart';
 import 'package:flutter/material.dart';
 import 'package:controle_engenharia/Objects/blocos.dart';
+import 'package:controle_engenharia/Objects/history.dart';
 import 'package:controle_engenharia/Common/app_card.dart';
-import 'package:controle_engenharia/corposdeprovascreen.dart';
-import 'package:controle_engenharia/Provider/sharedpreferences.dart';
+import 'package:controle_engenharia/Common/warningmessages.dart';
+import 'package:intl/intl.dart';
+
 
 
 
@@ -20,7 +24,7 @@ class corposDeProvaScreen2 extends StatefulWidget {
   double media(){
     double aux = 0;
     for (Bloco bloco in blocos) {
-      aux += double.parse(bloco.value);
+      aux += bloco.value;
     }
     md = (aux / blocos.length);
 
@@ -29,7 +33,7 @@ class corposDeProvaScreen2 extends StatefulWidget {
 
   double somatorio() {
     for(Bloco bloco in blocos){
-      sum += (md - double.parse(bloco.value)) * (md - double.parse(bloco.value));
+      sum += (md - bloco.value) * (md - bloco.value);
     }
 
     return sum;
@@ -58,6 +62,8 @@ class corposDeProvaScreen2 extends StatefulWidget {
 
 class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
 
+  // late List <Calculation> calculations = [];
+  late List <History> historys = [];
   var fontSize = 32.0;
   var media = 0.0;
   var somatorio = 0.0;
@@ -65,17 +71,10 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
   var variacao = 0.0;
   var fck = 0.0;
 
-  SnackBar warningMessage = SnackBar(
-    content: const Text("Limite do tamanho da fonte alcançado!"),
-    duration: const Duration(seconds: 2),
-    action: SnackBarAction(
-      label: "Ok",
-      onPressed: () {},
-    ),
-  );
 
   @override
-  void initState(){
+  void initState() {
+    var blocos = widget.blocos;
     media = widget.media();
     somatorio = widget.somatorio();
     desvioPadrao = widget.desvioPadrao();
@@ -83,17 +82,21 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
     fck = widget.fcknow();
 
 
-    sharedPreferences prefs = sharedPreferences();
-    setState(() {
-      prefs.writeValues(media, somatorio, desvioPadrao, variacao, fck);
-    });
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('dd/MM/yyyy – kk:mm').format(now);
 
+    Calculation calculation = Calculation(media, somatorio, desvioPadrao, variacao, fck);
+    History history = History(formattedDate, calculation, blocos);
+
+
+    Persist().storeHistory(history);
 
   }
 
+
   void upFontSize(double textSize) {
     setState(() {
-      this.fontSize >= 42.0 ? ScaffoldMessenger.of(context).showSnackBar(warningMessage) : this.fontSize += 5.0;
+      this.fontSize >= 42.0 ? ScaffoldMessenger.of(context).showSnackBar(warningMessages().fontSizeMessage) : this.fontSize += 5.0;
     });
   }
 

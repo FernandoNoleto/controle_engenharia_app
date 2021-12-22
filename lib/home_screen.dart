@@ -80,7 +80,8 @@ class _HomeState extends State<Home> {
               ),
               subtitle: Text(
                 "Calcular fck, desvio padrão, coeficiente de variação...",
-                style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
               ),
               onTap: () {
                 Navigator.push(
