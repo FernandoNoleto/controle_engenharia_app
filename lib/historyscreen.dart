@@ -37,9 +37,11 @@ class _historyScreenState extends State<historyScreen> {
 
   void _onDeleteItemPressed(int index) {
     print("remove at index: $index");
+    print("----------------------");
     setState(() {
       listHistory.removeAt(index);
       Persist().removeHistory(index);
+      listHistory.isEmpty ? haveHistorys = false : haveHistorys = true;
     });
   }
 

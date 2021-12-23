@@ -138,8 +138,6 @@ class _corposDeProvaScreen2State extends State<corposDeProvaScreen2> {
         ],
       ),
       body: Center(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        // crossAxisAlignment: CrossAxisAlignment.center,
         child: ListView(
           children: <Widget>[
             AppCard(

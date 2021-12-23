@@ -21,7 +21,6 @@ class Persist{
     print('para Json: \n'+json.encode(history).toString()+"\n");
     await prefs.setString('history$id', json.encode(history));
 
-
   }
 
 
@@ -33,9 +32,10 @@ class Persist{
     String jsonn = "";
     History history;
     int maxValue = (prefs.getInt('historys') ?? 0);
+    print("Max value: $maxValue");
 
 
-    for (int id = 0; id < maxValue; id++){
+    for (int id = 0; id <= maxValue; id++){
 
       jsonn = prefs.getString('history$id') ?? "";
       if(jsonn != ""){
@@ -43,6 +43,7 @@ class Persist{
         print('history$id: \n'+json.encode(history).toString()+"\n");
         _listHistory.add(history);
       }
+      jsonn = "";
     }
 
     return _listHistory;
@@ -53,17 +54,26 @@ class Persist{
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    List<History> list = await retrieveHistory();
-
     await prefs.remove("history$index");
 
-    int id = (prefs.getInt('historys') ?? 0);
-    await prefs.setInt('historys', id-1);
+    List<History> list = await retrieveHistory();
 
+    int id = (prefs.getInt('historys') ?? 0);
+
+
+    print("*******************************************\n");
+    for (History hist in list) {
+      print('Lista de Historys: \n'+json.encode(hist).toString()+"\n");
+    }
+
+    print("ID: $id");
     for(int i = 0; i < id-1; i++){
+
+      print("i: $i");
       await prefs.setString('history$i', json.encode(list[i]));
     }
 
+    await prefs.setInt('historys', id-1);
     int remove = id-1;
     await prefs.remove("history"+remove.toString());
 

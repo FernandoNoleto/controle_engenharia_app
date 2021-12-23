@@ -256,7 +256,7 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
 
       //-----------------------------------------------------------------------------------
 
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
             var bloco = new Bloco(0, "", 0);
@@ -266,9 +266,8 @@ class corposDeProvaScreenState extends State<corposDeProvaScreen> {
             blocos.add(bloco);
           });
         },
-        // child: const Icon(Icons.add),
-        label: const Text("Adicionar"),
-        icon: const Icon(Icons.add),
+        tooltip: "Adicionar bloco",
+        child: const Icon(Icons.add),
         backgroundColor: Colors.blueGrey,
       ),
     );
