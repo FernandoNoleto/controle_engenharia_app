@@ -4,6 +4,7 @@
 
 
 > 🇧🇷 : Um aplicativo para cálculos de controle tecnológico do concreto.
+> 
 > 🇺🇸 : An application for technological control calculations for concrete.
 
 ## Version 1.0
